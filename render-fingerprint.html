@@ -21,7 +21,7 @@
     </div>
 
     <script>
-        // --- Setup: A simple MD5 function and DOM selector for this demo ---
+        // This is not a real md5 algorithm. It is here just for a demo.
         function md5(str) {
             let hash = 0;
             for (let i = 0; i < str.length; i++) {
@@ -32,7 +32,6 @@
             return 'md5-hash: ' + hash.toString(16);
         }
         const _el = (selector) => document.querySelector(selector);
-        // ------------------------------------------------------------------
 
         const h = _el("#gl-image-src");
         const f = _el("#gl-image-hash");
@@ -64,12 +63,8 @@
                 p.enableVertexAttribArray(m.vertexPosAttrib);
                 p.enableVertexAttribArray(m.colorAttrib);
 
-                // --- FIX STARTS HERE ---
-                // This gets a reference to the 'transform' variable inside the shader program.
                 m.transform = p.getUniformLocation(m, "transform");
-                // This provides the actual matrix data for scaling and positioning the shape.
                 p.uniformMatrix4fv(m.transform, false, [1.5, 0, 0, 0, 0, 1.5, 0, 0, 0, 0, 1, 0, 0.5, 0, 0, 1]);
-                // --- FIX ENDS HERE ---
 
                 const b = [];
                 const S = 128;
@@ -87,7 +82,6 @@
                 p.vertexAttribPointer(m.vertexPosAttrib, 2, p.FLOAT, !1, 24, 0);
                 p.vertexAttribPointer(m.colorAttrib, 4, p.FLOAT, !1, 24, 8);
                 
-                // The drawing primitive should be TRIANGLES for this geometry
                 p.drawArrays(p.TRIANGLES, 0, T.length / 6);
                 
                 h.appendChild(p.canvas);
